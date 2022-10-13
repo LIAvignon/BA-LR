@@ -1,2 +1,2 @@
 # BA-LR
-Explainable Automatic Voice Comparison
+Toward an interpretable approach for automatic voice comparison

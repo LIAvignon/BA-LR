@@ -1,2 +1,1 @@
-# BA-LR
-Toward an interpretable approach for automatic voice comparison
+# BA-LR: Toward an interpretable approach for automatic voice comparison

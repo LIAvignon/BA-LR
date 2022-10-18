@@ -58,6 +58,12 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 ![global](data/distribution_0.5.png)
 
 ## Interpretability & Explainability
+![cont](data/dout_typ_c.png)
+If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision.
+We notice that there are some important BAs that lead the decision and that have the biggest contribution to the LR.
+![cont](data/force_plot.png) 
+
+To be continued...
 ## References
 For the resnet extractor we used:
 https://github.com/Chaanks/stklia

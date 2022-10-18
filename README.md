@@ -1,4 +1,4 @@
-# BA-LR: Toward an interpretable and explainable approach for automatic voice comparison
+# BA-LR: Toward an interpretable and explainable approach for automatic Speaker Recognition
 
 ## Table of content:
 * [How it works?](#install)
@@ -59,8 +59,8 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 
 ## Interpretability & Explainability
 ![cont](data/dout_typ_c.png)
-If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision.
-We notice that there are some important BAs that lead the decision and that have the biggest contribution to the LR.
+If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision using Shape figures.
+We notice that there are some important BAs that lead the decision to negative or positive values and that have the biggest contribution to the LR.
 ![cont](data/force_plot.png) 
 
 To be continued...

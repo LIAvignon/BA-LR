@@ -13,7 +13,7 @@ To install BA-LR, do the following:
 0. Use a conda environment
 1. Install requirements:
 ```sh
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 2. Clone repository:
 ```sh

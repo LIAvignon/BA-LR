@@ -58,6 +58,8 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 ![global](data/distribution_0.5.png)
 
 ## Interpretability & Explainability
+
+The interpretability of BA-LR approach is illustrated by two aspects. First, the characterisation of each attribute in terms of discriminatory power and reliability. Second, the impact of the attribute behavior on its contribution to the global LR value. For instance, if the behavior of an attribute is very discriminating of the speaker and that attribute is trustworthy, then its contribution to the final LR would be the most important, the most informative and the most reliable. 
 ![cont](data/dout_typ_c.png)
 If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision using Shape figures.
 We notice that there are some important BAs that lead the decision to negative or positive values and that have the biggest contribution to the LR.

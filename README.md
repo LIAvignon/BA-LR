@@ -6,6 +6,7 @@
 * [BA behavioral parameters](#params)
 * [LR Framework](#LR)
 * [Interpretability & Explainability](#explain)
+* [References](#ref)
 ## How to install?
 To install BA-LR, do the following:
 
@@ -57,6 +58,21 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 ![global](data/distribution_0.5.png)
 
 ## Interpretability & Explainability
+## References
+For the resnet extractor we used:
+https://github.com/Chaanks/stklia
+
+If you use this code, please do not forget to cite the following paper. Thanks!
+```BibTex
+@inproceedings{Benamor2022,
+  title={BA-LR: Binary-Attribute-based Likelihood Ratio estimation for forensic voice comparison
+},
+  author={Imen Ben Amor, Jean-François Bonastre},
+  booktitle={IEEE International Workshop on Biometrics and Forensics 2022},
+  year={2022},
+  organization={IEEE}
+}
+```
 
 
 

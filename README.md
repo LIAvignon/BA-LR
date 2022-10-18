@@ -62,7 +62,7 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 For the resnet extractor we used:
 https://github.com/Chaanks/stklia
 
-If you use this code, please do not forget to cite the following paper. Thanks!
+If you use this code, please do not forget to cite our paper where the idea of this approach is firstly introduced and got the best paper award. Thanks!
 ```BibTex
 @inproceedings{Benamor2022,
   title={BA-LR: Binary-Attribute-based Likelihood Ratio estimation for forensic voice comparison

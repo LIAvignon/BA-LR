@@ -55,7 +55,6 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8.
 ![partials](data/boxplot_scores.png)
 
 ### Global LR
-![global](data/distribution_0.5.png)
 
 ## Interpretability & Explainability
 

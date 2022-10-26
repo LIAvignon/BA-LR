@@ -39,7 +39,7 @@ def compute_dropout(b, profil, utt_spk, matrix_utterances, index_of_b):
                 else:
                     nb_present_BA += 1
         nb_BA_spk[spk] = nb_present_BA
-        BA_spk += nb_BA / nb_BA_spk[spk]
+        BA_spk += nb_BA / len(utt_spk[spk])
         dropout_per_spk[spk]= nb_BA / len(utt_spk[spk])
     logging.info(f"number of speakers having {b} = {spk_has_BA}")
     out = BA_spk / spk_has_BA

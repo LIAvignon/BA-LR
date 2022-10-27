@@ -1,50 +1,84 @@
 # ==============================================================================
 #  Copyright (c) 2022. Imen Ben Amor
 # ==============================================================================
-
 # Librairies
 import warnings
-
 warnings.filterwarnings("ignore")
 import pandas as pd
 import gc
-import pickle
 import numpy as np
+from preprocessing.xvectorParser import readVectors
 import var_env as env
 import itertools
 import random
 from itertools import product
-import time
-import re
+import scipy.stats as stats
 import argparse
 import logging
-from preprocessing import *
 
 
+def number_utterances(utt):
+    '''
+    This function calculates for each speaker the number of utterances
+    :param utt: list of utterances
+    :return: dictionary of speakers and corresponding number of utterances
+    '''
+    speaker_dict = {}
+    loc_list = []
+    for u in utt:
+        first_element_after_split = u.split("-")[0]
+        if speaker_dict.get(first_element_after_split) is not None:
+            speaker_dict[first_element_after_split] += 1
+        else:
+            speaker_dict[first_element_after_split] = 1
+        loc_list.append(first_element_after_split)
 
-def compute_dropout(b, profil, utt_spk, matrix_utterances, index_of_b):
-    BA_spk = 0
-    nb_BA_spk = {}
-    spk_has_BA = 0
-    dropout_per_spk={}
-    for spk in utt_spk.keys():
-        nb_BA = 0
-        nb_present_BA = 0
-        if profil[spk][b] != 0:
-            spk_has_BA += 1
-            for u in utt_spk[spk]:
-                index_utt = int(u[3:])
-                if matrix_utterances[index_utt][index_of_b] == 0:
-                    nb_BA += 1
-                else:
-                    nb_present_BA += 1
-        nb_BA_spk[spk] = nb_present_BA
-        BA_spk += nb_BA / len(utt_spk[spk])
-        dropout_per_spk[spk]= nb_BA / len(utt_spk[spk])
-    logging.info(f"number of speakers having {b} = {spk_has_BA}")
-    out = BA_spk / spk_has_BA
-    return out
+    return speaker_dict, loc_list
+def todelete(xvectors):
+    """
+    This function deletes zero columns for all rows in array "xvectors"
+    :param xvectors: array of binary xvectors
+    :return: filtered array, index of deleted column
+    """
+    res=np.all(xvectors[..., :] == 0, axis=0)
+    idx=[]
+    for i in range(len(res)):
+        if res[i]:
+            idx.append(i)
+    v = np.delete(xvectors, idx, axis=1)
+    return v, idx
+
+
+def profil_spk(xvectors, utt_per_spk, BA):
+    """
+    This function calculate the profile for each speaker
+    :param xvectors: array of xvectors
+    :param utt_per_spk: dict spk: nb_utterances
+    :param BA: list of BAs
+    :return:
+    """
+    profil = {}
+    j = 0
+    for spk in list(utt_per_spk.keys()):
+        BA_dict = {}
+        df_spk = xvectors[j:utt_per_spk[spk] + j]
+        for c, ba in zip(df_spk.T, BA):
+            if 1 in c:
+                BA_dict[ba] = 1
+            else:
+                BA_dict[ba] = 0
+        profil[spk] = BA_dict
+        j += utt_per_spk[spk]
+        # print(j)
+    return profil
 def compute_typicality(b, couples, profil):
+    """
+    This function calculates typicality
+    :param b: BAi
+    :param couples: combination of all speakers in couples
+    :param profil: dictionary of speakers profiles
+    :return: dictionary of BAi:typ_value
+    """
     nb = 0
     for (spk1, spk2) in couples:
         if spk1 != spk2 and profil[spk1][b] == 1 and profil[spk2][b] == 1:
@@ -52,14 +86,51 @@ def compute_typicality(b, couples, profil):
     # stat_BA[b] = nb
     typ_BA = nb / len(couples)
     return typ_BA
+def utterance_spk(nb_utt_spk):
+    """
+    This function provides a dictionary of the utterance for spki
+    :param nb_utt_spk: dictionary of spk:nbr of utterances
+    :return: spk1:["utt0","utt1"],spk2:["utt3","utt4"]
+    """
+    utt_spk = {}
+    j = 0
+    for spk in nb_utt_spk.keys():
+        nb = nb_utt_spk[spk]
+        utt_spk[spk] = ["utt" + str(i) for i in range(j, j + nb)]
+        j += nb
+    return utt_spk
+
+def utterance_dictionary(binary_vectors, utterances, BA):
+    """
+    This function gives the binary vector (using BAs) for each utterance
+    :param binary_vectors: array of all binary vectors files
+    :param utterances: list of utterances ids
+    :param BA: list of BAs
+    :return: {"id001-9fddfetl-001":{"BA0":1,"BA2":0, "BA3":1..},...}
+    """
+    utt = {}
+    for (u, row) in zip(utterances, binary_vectors):
+        utt[u] = {b: i for i, b in zip(row, BA)}
+    return utt
 
 def typicality_and_dropout(profil, couples,  utt_spk, BA, vectors,typ_path,dout_path):
+    """
+    This function calculate the typicality and Dropout for all BAs
+    :param profil: dictionary of speakers profiles
+    :param couples: combination of all speakers in couples
+    :param utt_spk: dictionary spk: list of utterances"index"
+    :param BA:
+    :param vectors: Train data binary array
+    :param typ_path: path of typicality file
+    :param dout_path: path of dropout file
+    :return: 2 files
+    """
     with open(typ_path, "w+") as file1:
         with open(dout_path, "w+") as file2:
             last_percent = -1
             for index, b in enumerate(BA):
                 typ_BA = compute_typicality(b, couples, profil)
-                dropout = compute_dropout(b, profil, utt_spk, vectors, index)
+                dropout= compute_dropout(b, profil, utt_spk, vectors, index)
 
                 file1.write("%s : %f " % (b, typ_BA))
                 file1.write("\n")
@@ -71,6 +142,7 @@ def typicality_and_dropout(profil, couples,  utt_spk, BA, vectors,typ_path,dout_
                 if percent % 10 == 0 and last_percent != percent:
                     logging.info(f"{percent}%")
                     last_percent = percent
+
         file2.close()
     file1.close()
 

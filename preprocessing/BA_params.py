@@ -1,18 +1,12 @@
 # ==============================================================================
 #  Copyright (c) 2022. Imen Ben Amor
 # ==============================================================================
-# Librairies
 import warnings
 warnings.filterwarnings("ignore")
-import pandas as pd
 import gc
 import numpy as np
-from preprocessing.xvectorParser import readVectors
 import var_env as env
 import itertools
-import random
-from itertools import product
-import scipy.stats as stats
 import argparse
 import logging
 
@@ -86,6 +80,38 @@ def compute_typicality(b, couples, profil):
     # stat_BA[b] = nb
     typ_BA = nb / len(couples)
     return typ_BA
+
+def compute_dropout(b, profil, utt_spk, matrix_utterances, index_of_b):
+    """
+
+    :param b: BAi
+    :param profil: dictionary spk: BAi:0 or 1
+    :param utt_spk: dictionary spk:utt_"index_utt"
+    :param matrix_utterances:
+    :param index_of_b:
+    :return:dropout per BAi, {spkj:x} for BAi,{spkj:dout} for BAi,number of speakers having b active
+    """
+    BA_spk = 0
+    nb_BA_spk_b = {}
+    spk_has_b_atleast_once = 0
+    dropout_per_spk={}
+    for spk in utt_spk.keys():
+        nb_BA = 0
+        nb_present_BA = 0
+        if profil[spk][b] != 0:
+            spk_has_b_atleast_once += 1
+            for u in utt_spk[spk]:
+                index_utt = int(u[3:])
+                if matrix_utterances[index_utt][index_of_b] == 0:
+                    nb_BA += 1
+                else:
+                    nb_present_BA += 1
+        nb_BA_spk_b[spk] = nb_present_BA
+        BA_spk += nb_BA / len(utt_spk[spk])
+        dropout_per_spk[spk]= nb_BA / len(utt_spk[spk])
+
+    out = BA_spk / spk_has_b_atleast_once
+    return out,nb_BA_spk_b,dropout_per_spk,spk_has_b_atleast_once
 def utterance_spk(nb_utt_spk):
     """
     This function provides a dictionary of the utterance for spki
@@ -128,11 +154,25 @@ def typicality_and_dropout(profil, couples,  utt_spk, BA, vectors,typ_path,dout_
     with open(typ_path, "w+") as file1:
         with open(dout_path, "w+") as file2:
             last_percent = -1
+            nb_couples_b = {}
+            typicalities = {}
+            dropouts = {}
+            nb_utt_spk_b = {}
+            dropout_spk = {}
+            nb_spk_has_BA = {}
             for index, b in enumerate(BA):
-                typ_BA = compute_typicality(b, couples, profil)
-                dropout= compute_dropout(b, profil, utt_spk, vectors, index)
+                typ, couples_active_b = compute_typicality(b, couples, profil)
+                nb_couples_b[b] = couples_active_b
+                typicalities[b] = typ
+                # typ_BA = compute_typicality2(b, utt_spk, utt, profil)
+                dropout, nb_BA_spk_b, dropout_per_spk, spk_has_b = compute_dropout(b, profil, utt_spk, vectors,
+                                                                                   index)
+                nb_spk_has_BA[b] = spk_has_b  # number of speakers per BA
+                nb_utt_spk_b[b] = nb_BA_spk_b  # dict(spki:nb_BA active in utterances}
+                dropout_spk[b] = dropout_per_spk  # dict(spki:dout)
+                dropouts[b] = dropout
 
-                file1.write("%s : %f " % (b, typ_BA))
+                file1.write("%s : %f " % (b, typ))
                 file1.write("\n")
 
                 file2.write("%s:%f" % (b, dropout))
@@ -145,6 +185,7 @@ def typicality_and_dropout(profil, couples,  utt_spk, BA, vectors,typ_path,dout_
 
         file2.close()
     file1.close()
+    return nb_couples_b, typicalities, dropouts, nb_spk_has_BA, nb_utt_spk_b, dropout_spk
 
 
 def stringToList(string):

@@ -1,4 +1,5 @@
 # BA-LR: Toward an interpretable and explainable approach for automatic Speaker Recognition
+<img src="data/BA-LR.png" alt="drawing" width="500"/>
 
 ## Table of content:
 * [How it works?](#install)
@@ -19,7 +20,7 @@ pip install -r requirements.txt
 ```sh
 git clone https://github.com/Imenbaa/BA-LR.git
 ```
-## BA-vectors extractor
+## 1) BA-vectors extractor
 The extractor is trained with augmented version of Voxceleb2 dataset https://www.robots.ox.ac.uk/~vgg/data/voxceleb/vox2.html. It is composed of a ResNet generator of speech representations optimised for speaker classification task. 
 After training phase, we obtain sparse representations of zero's and x's, we replace x with 1 to obtain binary representation. The trained generator parameters are in [model/voxceleb_BA](https://github.com/Imenbaa/BA-LR/tree/main/model/voxceleb_BA/model_dir/).
 #### Generator
@@ -37,8 +38,12 @@ python extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [WAV_FILE
 [TEST BAvectors]
 python extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [WAV_FILES_Test] -f "txt"
 ```
+#### Correlation between BAs in BA-vector
+The BAs coefficients of BA-vector are decorrelated between each other which is proved by the following figure of the pearson correlation:
 
-## BA behavioral parameters
+<img src="data/correlation_softplus.png" alt="drawing" width="400"/>
+
+## 2) BA behavioral parameters
 Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data.
 ```sh
 python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
@@ -52,7 +57,6 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8 for train trials.
 
 <img src="data/fig_din.png" alt="drawing" width="200"/>
 
-## LR Framework
 ### Partial LRs
 <img src="data/boxplot_scores.png" alt="drawing" width="300"/>
 
@@ -61,7 +65,7 @@ is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8 for train trials.
 <img src="data/LR.png" alt="drawing" width="300"/>
 
 
-## Interpretability & Explainability
+## 3) Interpretability & Explainability
 
 The interpretability of BA-LR approach is illustrated by two aspects. First, the characterisation of each attribute in terms of discriminatory power and reliability. Second, the impact of the attribute behavior on its contribution to the global LR value. For instance, if the behavior of an attribute is very discriminating of the speaker and that attribute is trustworthy, then its contribution to the final LR would be the most important, the most informative and the most reliable. 
 

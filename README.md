@@ -12,10 +12,7 @@
 To install BA-LR, do the following:
 
 0. Use a conda environment
-1. Install requirements:
-```sh
-pip install -r requirements.txt
-```
+1. Install requirement libraries
 2. Clone repository:
 ```sh
 git clone https://github.com/Imenbaa/BA-LR.git

@@ -20,8 +20,8 @@ pip install -r requirements.txt
 git clone https://github.com/Imenbaa/BA-LR.git
 ```
 ## BA-vectors extractor
-The extractor is trained on Voxceleb2 dataset https://www.robots.ox.ac.uk/~vgg/data/voxceleb/vox2.html. It is composed of a ResNet generator of speech representations optimised for speaker classification task. 
-After training phase, we obtain sparse representations (0,x), we replace x to 1 to obtain binary representation. The trained generator parameters are in [model/voxceleb_BA](https://github.com/Imenbaa/BA-LR/tree/main/model/voxceleb_BA/model_dir/).
+The extractor is trained with augmented version of Voxceleb2 dataset https://www.robots.ox.ac.uk/~vgg/data/voxceleb/vox2.html. It is composed of a ResNet generator of speech representations optimised for speaker classification task. 
+After training phase, we obtain sparse representations of zero's and x's, we replace x with 1 to obtain binary representation. The trained generator parameters are in [model/voxceleb_BA](https://github.com/Imenbaa/BA-LR/tree/main/model/voxceleb_BA/model_dir/).
 #### Generator
 `Filterbanks -> ResNet generator -> embedding -> Softplus layer() -> Sparse representation`  
 #### Speaker Classifier
@@ -41,28 +41,37 @@ python extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [WAV_FILE
 ## BA behavioral parameters
 Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data.
 ```sh
-python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ_BA_soft.txt --dout_path data/dropout_soft.txt
+python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
 ```
-![dout](data/dout_summary.png)
-![typ](data/typ_smmary.png)
+<img src="data/dout_summary.png" alt="drawing" width="400"/>
+<img src="data/typ_smmary.png" alt="drawing" width="400"/>
+
 The dropin parameter, Din, is related to the noise that could occur in the data. The value of drop-in is tuned on a dedicated set of comparison
 pairs extracted from the train corpus, by minimizing the actual Calibrated Log LR, Cllr. The optimised value of dropin
-is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8. 
+is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8 for train trials.
 
-![Din](data/fig_din.png)
+<img src="data/fig_din.png" alt="drawing" width="200"/>
+
 ## LR Framework
 ### Partial LRs
-![partials](data/boxplot_scores.png)
+<img src="data/boxplot_scores.png" alt="drawing" width="300"/>
 
-### Global LR
+### Gloabl LR
+
+<img src="data/LR.png" alt="drawing" width="300"/>
+
 
 ## Interpretability & Explainability
 
 The interpretability of BA-LR approach is illustrated by two aspects. First, the characterisation of each attribute in terms of discriminatory power and reliability. Second, the impact of the attribute behavior on its contribution to the global LR value. For instance, if the behavior of an attribute is very discriminating of the speaker and that attribute is trustworthy, then its contribution to the final LR would be the most important, the most informative and the most reliable. 
-![cont](data/dout_typ_c.png)
+
+<p align="centre">
+<img src="data/dout_typ_c.png" alt="drawing" width="300" />
+</p>
 If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision using Shape figures.
 We notice that there are some important BAs that lead the decision to negative or positive values and that have the biggest contribution to the LR.
-![cont](data/force_plot.png) 
+
+<img src="data/force_plot.png" alt="drawing" width="300"/>
 
 To be continued...
 ## References

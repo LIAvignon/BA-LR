@@ -2,7 +2,6 @@
 #  Copyright (c) 2022. Imen Ben Amor
 # ==============================================================================
 
-from itertools import combinations
 import numpy as np
 
 def compute_entropy(field,df):

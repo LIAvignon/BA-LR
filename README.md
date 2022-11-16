@@ -45,8 +45,6 @@ Behavioral parameters per BA such as the typicality, typ, and the dropout, dout 
 ```sh
 python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
 ```
-<img src="data/dout_summary.png" alt="drawing" width="400"/>
-<img src="data/typ_smmary.png" alt="drawing" width="400"/>
 
 The dropin parameter, Din, is related to the noise that could occur in the data. The value of drop-in is tuned on a dedicated set of comparison
 pairs extracted from the train corpus, by minimizing the actual Calibrated Log LR, Cllr. The optimised value of dropin

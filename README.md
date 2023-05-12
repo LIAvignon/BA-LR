@@ -46,19 +46,9 @@ Behavioral parameters per BA such as the typicality, typ, and the dropout, dout 
 python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
 ```
 
-The dropin parameter, Din, is related to the noise that could occur in the data. The value of drop-in is tuned on a dedicated set of comparison
-pairs extracted from the train corpus, by minimizing the actual Calibrated Log LR, Cllr. The optimised value of dropin
-is 0.50 for Cllrmin/act equal to 0.13/0.16 and EER= 2.8 for train trials.
-
-<img src="data/fig_din.png" alt="drawing" width="200"/>
 
 ### Partial LRs
 <img src="data/boxplot_scores.png" alt="drawing" width="300"/>
-
-### Gloabl LR
-
-<img src="data/LR.png" alt="drawing" width="300"/>
-
 
 ## 3) Interpretability & Explainability
 
@@ -70,14 +60,14 @@ The interpretability of BA-LR approach is illustrated by two aspects. First, the
 If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision using Shape figures.
 We notice that there are some important BAs that lead the decision to negative or positive values and that have the biggest contribution to the LR.
 
+
 <img src="data/force_plot.png" alt="drawing" width="300"/>
 
-To be continued...
 ## References
-For the resnet extractor we used:
-https://github.com/Chaanks/stklia
+The extractor is inspired from this LIA extractor:
+https://github.com/Chaanks/stklia 
 
-If you use this code, please do not forget to cite our paper where the idea of this approach is firstly introduced and got the best paper award. Thanks!
+If you use this repo, please do not forget to cite our paper where the idea of this approach is firstly introduced and got the best paper award. Thanks!
 ```BibTex
 @inproceedings{Benamor2022,
   title={BA-LR: Binary-Attribute-based Likelihood Ratio estimation for forensic voice comparison

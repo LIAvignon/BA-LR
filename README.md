@@ -51,7 +51,7 @@ The LR framework is presented as an interpretable and explainable scoring for sp
 <img src="data/BA-LR.png" alt="drawing" width="300"/>
 
 ## 4) Interpretability methodology
-<img src="data/interpret.png" alt="drawing" width="300"/>
+<img src="data/Interpret.png" alt="drawing" width="300"/>
 
 ## References
 The ResNet extractor is inspired from this LIA extractor:

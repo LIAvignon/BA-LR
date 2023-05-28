@@ -51,6 +51,8 @@ The LR framework is presented as an interpretable and explainable scoring for sp
 <img src="data/BA-LR.png" alt="drawing" width="300"/>
 
 ## 4) Interpretability methodology
+For explanatory variables extraction, we use OpenSmile toolkit https://audeering.github.io/opensmile/get-started.html#default-feature-sets
+
 <img src="data/Interpret.png" alt="drawing" width="300"/>
 
 ## References

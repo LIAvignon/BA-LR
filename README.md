@@ -1,5 +1,5 @@
-# BA-LR: Toward an interpretable and explainable approach for automatic Speaker Recognition
-<img src="data/BA-LR.png" alt="drawing" width="500"/>
+# Describing the phonetics in the underlying speech attributes for deep and interpretable speaker recognition
+This github is the implementation of BA-LR approach for speaker recognition. This approach is decomposed of Three steps: 1) the extraction of binary-attribute-based speech representations, 2) the estimation of the attribute behavioral parameters and LR estimation,3) Explainability and interpretability of the nature of those attributes. Below two references of the works published concerning this approach where the first one concerns the presentation of the approach ,mainly step 1 and 2,and the second reference presents a methodology that explains the nature of each attribute contributing to the LR estimation for speaker verification. 
 
 ## Table of content:
 * [How it works?](#install)
@@ -38,36 +38,26 @@ python extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [WAV_FILE
 #### Correlation between BAs in BA-vector
 The BAs coefficients of BA-vector are decorrelated between each other which is proved by the following figure of the pearson correlation:
 
-<img src="data/correlation_softplus.png" alt="drawing" width="400"/>
+<img src="data/Explainability/corr1.png" alt="drawing" width="300"/>
 
 ## 2) BA behavioral parameters
 Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data.
 ```sh
 python BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
 ```
+## 3) LR framework 
+The LR framework is presented as an interpretable and explainable scoring for speaker verification.
 
+<img src="data/BA-LR.png" alt="drawing" width="300"/>
 
-### Partial LRs
-<img src="data/boxplot_scores.png" alt="drawing" width="300"/>
-
-## 3) Interpretability & Explainability
-
-The interpretability of BA-LR approach is illustrated by two aspects. First, the characterisation of each attribute in terms of discriminatory power and reliability. Second, the impact of the attribute behavior on its contribution to the global LR value. For instance, if the behavior of an attribute is very discriminating of the speaker and that attribute is trustworthy, then its contribution to the final LR would be the most important, the most informative and the most reliable. 
-
-<p align="centre">
-<img src="data/dout_typ_c.png" alt="drawing" width="300" />
-</p>
-If we take a target and a non target voice pair and we try to see the contribution of the different BAs to the final LR decision using Shape figures.
-We notice that there are some important BAs that lead the decision to negative or positive values and that have the biggest contribution to the LR.
-
-
-<img src="data/force_plot.png" alt="drawing" width="300"/>
+## 4) Interpretability methodology
+<img src="data/interpret.png" alt="drawing" width="300"/>
 
 ## References
-The extractor is inspired from this LIA extractor:
+The ResNet extractor is inspired from this LIA extractor:
 https://github.com/Chaanks/stklia 
 
-If you use this repo, please do not forget to cite our paper where the idea of this approach is firstly introduced and got the best paper award. Thanks!
+If you use this repo, please do not forget to cite the following papers related to BA-LR approach. Thanks!
 ```BibTex
 @inproceedings{Benamor2022,
   title={BA-LR: Binary-Attribute-based Likelihood Ratio estimation for forensic voice comparison
@@ -76,6 +66,15 @@ If you use this repo, please do not forget to cite our paper where the idea of t
   booktitle={IEEE International Workshop on Biometrics and Forensics 2022},
   year={2022},
   organization={IEEE}
+}
+```
+```BibTex
+@inproceedings{Benamor2023,
+  title={Describing the phonetics in the underlying speech attributes for deep and
+interpretable speaker recognition},
+  author={Imen Ben Amor, Jean-François Bonastre,Benjamin O’Brien, Pierre-Michel Bousquet},
+  booktitle={Interspeech2023},
+  year={2023}
 }
 ```
 

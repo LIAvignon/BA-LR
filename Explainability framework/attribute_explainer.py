@@ -7,16 +7,13 @@ import pandas as pd
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
 from preprocessing.preprocessing import *
-from preprocessing.load_train_param import *
-from preprocessing.filters import *
-from preprocessing.MI import *
 import logging
 import shap
 import os
 from sklearn.preprocessing import StandardScaler
-from preprocessing.build_contributions import *
-from preprocessing.plots import *
-from preprocessing.test import test_vox1
+from build_contributions import *
+from plots import *
+from test import *
 
 meta_vox2=pd.read_csv("/data/vox2_meta.csv")
 meta_vox1=pd.read_csv("/voxceleb1.csv",sep='\t')

@@ -38,7 +38,7 @@ python extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [WAV_FILE
 #### Correlation between BAs in BA-vector
 The BAs coefficients of BA-vector are decorrelated between each other which is proved by the following figure of the pearson correlation:
 
-<img src="data/Explainability/corr1.png" alt="drawing" width="300"/>
+<img src="explainability_results/Explainability/corr1.png" alt="drawing" width="300"/>
 
 ## 2) BA behavioral parameters
 Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data.

@@ -5,7 +5,7 @@
 #  Copyright (c) 2022. Imen Ben Amor
 # ==============================================================================
 
-from lr import LR_00,LR_10,LR_01,LR_11,Cllr_min
+from Step2.LR.lr import LR_00,LR_10,LR_01,LR_11,Cllr_min
 import numpy as np
 import matplotlib.pyplot as plt
 

@@ -3,7 +3,7 @@
 # ==============================================================================
 
 import numpy as np
-from performance import cllr, min_cllr
+from Step2.LR.performance import cllr, min_cllr
 #=============================== LR Framework ===================================================
 def LR_00(x, prob_dropout, prob_dropin):
     return  1/ (x*((1-prob_dropin)+prob_dropout))

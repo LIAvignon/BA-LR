@@ -73,7 +73,7 @@ This will calculate the typicality and dropout parameters of attributes based on
 
 ### Step2.b: LR Framework
 
-To calculate the likelihood ratio using BA-LR, we provide an example of jupyter notebook in Step2/LR.
+To calculate the likelihood ratio using BA-LR, we provide an example of jupyter notebook in Scoring_LR.py.
 
 ### Step3: Explain and describe the nature of attributes
 

@@ -42,6 +42,13 @@ def todelete(xvectors):
     v = np.delete(xvectors, idx, axis=1)
     return v, idx
 
+def todelete(df,f):
+    todelete=[]
+    for c in df[f]:
+        if len(df[df[c]!=0])==0:
+            todelete.append(c)
+    df=df.drop(todelete, axis=1)
+    return df
 
 def profil_spk(xvectors, utt_per_spk, BA):
     """

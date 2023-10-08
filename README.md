@@ -103,8 +103,7 @@ python selection.py --path_params ./df_opensmile.csv --path_utt_list [List_of_ut
 ```
 
 #### c) Methods to classify 0 and 1 sets
-
-First method: StepWise Linear Discriminant Analysis
+We proposed two methods: StepWise Linear Discriminant Analysis and DecisionTree followed by a TreeShap Explainer
 ```sh
 cd Step3
 python attribute_slda.py

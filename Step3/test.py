@@ -2,7 +2,7 @@
 #  Copyright (c) 2023. Imen Ben Amor
 # ==============================================================================
 
-from preprocessing.data_distribution import partition_gender_plot,loc_gendre_vox1
+from Step2.preprocessing import partition_gender_plot,loc_gendre_vox1
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import logging

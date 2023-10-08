@@ -9,7 +9,9 @@ Below two references of the works published concerning this approach where the f
 * [Step2.b: LR Framework](#LR)
 * [Step3: Explain and describe the nature of attributes](#explain)
 * [References](#ref)
-### How to install?
+
+### How to install? 
+
 To install BA-LR, do the following:
 
 0. Use a conda environment
@@ -26,7 +28,7 @@ The trained extractor model is provided in [Step1/model/voxceleb_BA]().
 #### Extractor
 `Filterbanks -> ResNet extractor -> embedding -> Softplus layer() -> Sparse representation`  
 #### Speaker Classifier
-`Sparse representation -> classifier (i.e. NN projected to num_classes with Softmax) -> class prediction`
+`Sparse representation -> classifier (i.e. NN projected to num_classes with ARCMargin Softmax) -> class prediction`
 #### BA-Vector
 `Sparse representation -> BA-vectors`
 

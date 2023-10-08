@@ -116,6 +116,10 @@ python attribute_explainer
 
 The generated results are in Html files in Step3/explainability_resuls folder.
 
+### Calibration of scores
+
+In progress...
+
 ## References
 The ResNet extractor is inspired from this LIA extractor:
 https://github.com/Chaanks/stklia 

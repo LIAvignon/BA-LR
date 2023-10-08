@@ -39,6 +39,7 @@ Another step before extracting filterbanks is to prepare your data:
 2) Create wav.scp file in which you put in each line: [name_of_utterance] [path_of_utterance_wav_file]
 3) Create utt2spk file in which you put in each line: [name_of_utterance] [id_of_corresponding_spk]
 
+wav.scp and utt2spk should be in Step1/features_extraction
 ```sh
 export KALDI_ROOT=[PATH_OF_KALDI]
 cd Step1/features_extraction

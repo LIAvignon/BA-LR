@@ -2,6 +2,8 @@
 This is the implementation of BA-LR approach for speaker recognition. This approach is decomposed of three steps: 1) the extraction of binary-attribute-based speech representations, 2) the estimation of the attribute behavioral parameters and LR estimation, 3) Explainability and interpretability of the nature of the attributes. 
 Below two references of the works published concerning this approach where the first one provides a presentation of the approach ,mainly step 1 and 2,and the second reference presents a methodology that explains the nature of each attribute contributing to the LR estimation for speaker verification. 
 
+<img src="data/balr.png" alt="drawing" width="300"/>
+
 ## Table of content:
 * [How to install?](#install)
 * [Step1: BA-vectors extractor](#extract)
@@ -25,6 +27,7 @@ The extractor is trained with augmented version of Voxceleb2 dataset. It is comp
 This model takes as input filter bank features that we extract with Kaldi.
 In the inference, we obtain sparse representations of values in [0,x], we replace x with 1 to obtain binary representation. 
 The trained extractor model is provided in [Step1/model/voxceleb_BA]().
+
 #### Extractor
 `Filterbanks -> ResNet extractor -> embedding -> Softplus layer() -> Sparse representation`  
 #### Speaker Classifier

@@ -3,12 +3,12 @@
 # ==============================================================================
 
 def load_trials():
-    with open("data/test/target_trials.txt","r") as f:
+    with open("data/target_trials.txt","r") as f:
         text=f.readlines()
         target=[]
         for couple in text:
             target.append(eval(couple.strip()))
-    with open("data/test/non_trials.txt","r") as f:
+    with open("data/non_trials.txt","r") as f:
         text=f.readlines()
         non=[]
         for couple in text:

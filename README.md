@@ -111,7 +111,7 @@ We proposed two methods: StepWise Linear Discriminant Analysis and DecisionTree 
 cd Step3
 python attribute_slda.py
 OR
-python attribute_explainer
+python attribute_explainer.py
 ```
 
 The generated results are in Html files in Step3/explainability_resuls folder.

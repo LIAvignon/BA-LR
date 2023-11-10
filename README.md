@@ -57,9 +57,9 @@ To extract the sparse representations of VoxCeleb1 (test) and 2 (Train) data, do
 ```sh
 cd Step1
 [TRAIN BAvectors]
-python extractor/extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [features_TRAIN] -f "txt"
+python extractor/extract.py -m [Absolute_PATH]/model/voxceleb_BA/model_dir --checkpoint 2100 -d [features_TRAIN] -f "txt"
 [TEST BAvectors]
-python extractor/extract.py -m /model/voxceleb_BA/model_dir --checkpoint 2100 -d [features_TEST] -f "txt"
+python extractor/extract.py -m [Absolute_PATH]/model/voxceleb_BA/model_dir --checkpoint 2100 -d [features_TEST] -f "txt"
 ```
 
 ### Step2.a: BA behavioral parameters estimation

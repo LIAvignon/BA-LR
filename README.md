@@ -136,7 +136,7 @@ If you use this repo, please do not forget to cite the following papers related 
 }
 ```
 ```BibTex
-@inproceedings{Benamor2023,
+@inproceedings{Ben-amor2023,
   title={Describing the phonetics in the underlying speech attributes for deep and
 interpretable speaker recognition},
   author={Imen Ben Amor, Jean-François Bonastre,Benjamin O’Brien, Pierre-Michel Bousquet},
@@ -144,6 +144,22 @@ interpretable speaker recognition},
   year={2023}
 }
 ```
-
-
+```BibTex
+@inproceedings{Ben-amor2024,
+  title={Forensic speaker recognition with BA-LR: calibration and evaluation on a
+forensically realistic database},
+  author={Imen Ben-Amor, Jean-Francois Bonastre, David van der Vloed},
+  booktitle={Odyssey2024},
+  year={2024}
+}
+```
+```BibTex
+@inproceedings{Ben-amor2024,
+  title={Extraction of interpretable and shared speaker-specific speech attributes
+through binary auto-encoder},
+  author={Imen Ben-Amor, Jean-Francois Bonastre, Salima Mdhaffar},
+  booktitle={Interspeech2024},
+  year={2024}
+}
+```
 

@@ -1,15 +1,21 @@
-# BA-LR: Towards an interpretable and explainable approach for speaker recognition
-This is the implementation of BA-LR approach for speaker recognition. This approach is decomposed of three steps: 1) the extraction of binary-attribute-based speech representations, 2) the estimation of the attribute behavioral parameters and LR estimation, 3) Explainability and interpretability of the nature of the attributes. 
+# BA-LR: Deep modeling based on voice attributes for explainable speaker recognition
+This is the implementation of BA-LR approach for speaker recognition. This approach is decomposed of three steps:
+1. the extraction of binary-attribute-based speech representations. 
+2. the estimation of the attribute behavioral parameters and LR estimation
+3. Explainability and interpretability of the nature of the attributes. 
 Below two references of the works published concerning this approach where the first one provides a presentation of the approach ,mainly step 1 and 2,and the second reference presents a methodology that explains the nature of each attribute contributing to the LR estimation for speaker verification. 
 
 <img src="data/balr.png" alt="drawing" width="400"/>
 
 ## Table of content:
 * [How to install?](#install)
-* [Step1: BA-vectors extractor](#extract)
+* [Step1: BA-vectors extractor (ResNet-based model)](#extract1)
 * [Step2.a: BA behavioral parameters estimation](#params)
-* [Step2.b: LR Framework](#LR)
-* [Step3: Explain and describe the nature of attributes](#explain)
+* [Step2.b: LR Framework (Version 1)](#LR1)
+* [Step2.b: LR Framework (Version 1)](#LR2)
+* [Step3: Describe the nature of attributes in terms of phonetics](#explain1)
+* [Step3: Explain the nature of attributes in terms of phonemes](#explain2)
+* [Improvement over Step1: Binary auto-encoder model](#extract2)
 * [References](#ref)
 
 ### How to install? 

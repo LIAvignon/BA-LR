@@ -140,6 +140,8 @@ The generated results are in Html files in Step3/explainability_results folder.
 
 ### Step3: Explain the nature of attributes in terms of phonemes
 
+Scripts to be added...
+
 #### Align attributes with input frames
 
 <img src="data/resnet_explain1.png" alt="drawing" width="300"/>
@@ -153,7 +155,7 @@ The generated results are in Html files in Step3/explainability_results folder.
 <img src="data/align_attribute_phonemes.png" alt="drawing" width="700"/>
 
 ### Improvement over Step1: Binary auto-encoder model
-
+The proposed model is trained using the script Step1/Binary_AE/bae.py, where you could find the model and the dataloader strategy as well as the training.
 ## References
 The ResNet extractor is inspired from this LIA extractor:
 https://github.com/Chaanks/stklia 

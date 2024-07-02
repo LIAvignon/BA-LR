@@ -126,7 +126,6 @@ class CustomDatasetall(Dataset):
             # print(len(class_indices))
             # Randomly choose examples for the current class
             selected_indices1 = torch.randperm(len(class_indices))[:self.num_examples_per_class]
-            # print(len(selected_indices1))
             # selected_indices2 = torch.randperm(len(class_indices))[:self.num_examples_per_class]
             # Append selected examples to the appropriate batch
             batch_1.extend(self.data['input'][class_indices[selected_indices1]])

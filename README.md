@@ -156,6 +156,7 @@ Scripts to be added...
 
 ### Improvement over Step1: Binary auto-encoder model
 The proposed model is trained using the script Step1/Binary_AE/bae.py, where you could find the model and the dataloader strategy as well as the training.
+This model is published in Interspeech 2024. For more details please refer to the paper.
 ## References
 The ResNet extractor is inspired from this LIA extractor:
 https://github.com/Chaanks/stklia 

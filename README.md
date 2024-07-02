@@ -150,7 +150,7 @@ The generated results are in Html files in Step3/explainability_results folder.
 1. Transcription of VoxCeleb1 is done using whisper and MFA aligner in order to obtain an automatic alignment of phonemes.
 
 <img src="data/table_phonemes.png" alt="drawing" width="300"/>
-<img src="data/align_attribute_phonemes.png" alt="drawing" width="300"/>
+<img src="data/align_attribute_phonemes.png" alt="drawing" width="500"/>
 
 ### Improvement over Step1: Binary auto-encoder model
 

@@ -139,8 +139,9 @@ python attribute_explainer.py
 The generated results are in Html files in Step3/explainability_results folder.
 
 ### Step3: Explain the nature of attributes in terms of phonemes
-<img src="data/resnet_explain.png" alt="drawing" width="300"/>
+
 <img src="data/resnet_explain1.png" alt="drawing" width="300"/>
+<img src="data/resnet_explain.png" alt="drawing" width="300"/>
 
 ### Improvement over Step1: Binary auto-encoder model
 

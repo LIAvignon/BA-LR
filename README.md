@@ -12,8 +12,7 @@ Below two references of the works published concerning this approach where the f
 * [How to install?](#install)
 * [Step1: BA-vectors extractor (ResNet-based model)](#extract1)
 * [Step2.a: BA behavioral parameters estimation](#params)
-* [Step2.b (DNA-inspired): LR Framework](#LR1)
-* [Step2.b (Speech-based): LR Framework ](#LR2)
+* [Step2.b : LR Framework](#LR)
 * [Step3: Describe the nature of attributes in terms of phonetics](#explain1)
 * [Step3: Explain the nature of attributes in terms of phonemes](#explain2)
 * [Improvement over Step1: Binary auto-encoder model](#extract2)
@@ -29,10 +28,10 @@ To install BA-LR, do the following:
 ```sh
 git clone https://github.com/LIAvignon/BA-LR.git
 ```
-### 1) Step1: BA-vectors extractor
+### 1) Step1: BA-vectors extractor (ResNet-based model)
 The extractor is trained with augmented version of Voxceleb2 dataset. It is composed of a ResNet encoder that is trained to generate speaker embeddings optimised for speaker classification task. 
 This model takes as input filter bank features that we extract with Kaldi.
-In the inference, we obtain sparse representations of values in [0,x], we replace x with 1 to obtain binary representation. 
+In the inference, we obtain sparse representations of values in [0,x], we replace x with 1 to obtain binary representation. Please note that this extractor is an initial version only and that better version is provided in this repo.
 The trained extractor model is provided in [Step1/model/voxceleb_BA]().
 
 #### Extractor
@@ -42,8 +41,8 @@ The trained extractor model is provided in [Step1/model/voxceleb_BA]().
 #### BA-Vector
 `Sparse representation -> BA-vectors`
 
-To extract filterbanks with kaldi, you should firstly install kaldi.  To install kaldi on ubuntu, follow this tutorial: https://www.assemblyai.com/blog/kaldi-install-for-dummies/
-Another step before extracting filterbanks is to prepare your data: 
+To extract filterbank with kaldi, you should firstly install kaldi.  To install kaldi on ubuntu, follow this tutorial: https://www.assemblyai.com/blog/kaldi-install-for-dummies/
+Another step before extracting filterbank is to prepare your data: 
 
 1) Your wav files should start with the id of speaker and then the name of utterance
 2) Create wav.scp file in which you put in each line: [name_of_utterance] [path_of_utterance_wav_file]
@@ -70,8 +69,7 @@ python extractor/extract.py -m [Absolute_PATH]/model/voxceleb_BA/model_dir --che
 ```
 
 ### Step2.a: BA behavioral parameters estimation
-Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data.
-
+Behavioral parameters per BA such as the typicality, typ, and the dropout, dout are calculated based on the train data. 
 ```sh
 cd Step2
 python preprocessing/BA_params.py --path [TRAIN_DATA]/BAvectors.txt  --typ_path data/typ.txt --dout_path data/dout.txt
@@ -80,11 +78,27 @@ This will calculate the typicality and dropout parameters of attributes based on
 
 ### Step2.b: LR Framework
 
+
+There exists two versions to estimate the Likelihood Ratio (LR). The first version is inspired from DNA and consider that one of the samples under comparison is the ground truth. This is one limitation of the first version which makes the calculation of LR_01 and LR_10 not symmetrical.
+This is why we proposed another version that is more logical and that is adapted to speech and consider symmetry between both samples which gives LR_01==LR_10.
+
+1. DNA-inspired: the framework is in DNA-inspired_LR.py
+2. Speech-based: the framework is in Speech-based_LR.py
+
 To calculate the likelihood ratio using BA-LR, we provide an example of jupyter notebook in Scoring_LR.py.
 
-### Step3: Explain and describe the nature of attributes
+#### Calibration of scores: 
+This will divide the data into dev and test sets, it will train a logistic regression model with the dev data that shifts and scales the LLRs scores and also apply fusion on attribute-LLRs.
+Then Apply this model on the test LLRs in order to obtain calibrated LLRs. This script will generate a log file where you can monitor the training using different values of Lambda for the fusion.
+This work is published in reference 3 [Ben-Amor2024]
+```sh
+cd Step2
+python calibration.py --path [BA-vectors PATH]/BAvectors.txt
+```
 
-To describe the phonetic nature of attributes we use the proposed methodology of reference 2.
+### Step3: Describe the nature of attributes in terms of phonetics
+
+To describe the phonetic nature of attributes we use the proposed methodology of reference 2 [Ben-Amor2023].
 In Step3/explainability_results, we provide the results describing our attributes. The methodology is described in th following figure:
 
 <img src="data/Interpret.png" alt="drawing" width="300"/>
@@ -92,7 +106,8 @@ In Step3/explainability_results, we provide the results describing our attribute
 This methodology is applied on Train data (information is stronger) is decomposed into 3 sub steps: 
 a) Extraction of binary vectors and selection of 0 and 1 utterance sets of a given attribute. 
 b) Extraction of descriptors from speech utterances using OpenSmile
-c) Differentiation between both sets 0 and 1 to evaluate the discrimination ability of the attribute to discriminate 0 and 1 classes. From this differentiations, we can order the descriptors having biggest contribution to this differentiation.
+c) Differentiation between both sets 0 and 1 to evaluate the discrimination ability of the attribute to discriminate 0 and 1 classes. 
+From this differentiations, we can order the descriptors having biggest contribution to this differentiation.
 
 #### Combination of a) and b)
 First of all you need to install OpenSmile: there is a python and C++ versions for it. The C++ version is faster.
@@ -121,11 +136,13 @@ OR
 python attribute_explainer.py
 ```
 
-The generated results are in Html files in Step3/explainability_resuls folder.
+The generated results are in Html files in Step3/explainability_results folder.
 
-### Calibration of scores
+### Step3: Explain the nature of attributes in terms of phonemes
+<img src="data/resnet_explain.png" alt="drawing" width="300"/>
+<img src="data/resnet_explain1.png" alt="drawing" width="300"/>
 
-In progress...
+### Improvement over Step1: Binary auto-encoder model
 
 ## References
 The ResNet extractor is inspired from this LIA extractor:

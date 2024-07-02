@@ -140,8 +140,18 @@ The generated results are in Html files in Step3/explainability_results folder.
 
 ### Step3: Explain the nature of attributes in terms of phonemes
 
+#### Align attributes with input frames
+
 <img src="data/resnet_explain1.png" alt="drawing" width="300"/>
 <img src="data/resnet_explain.png" alt="drawing" width="300"/>
+
+#### Mapping between attributes and phonemes
+
+1. Transcription of VoxCeleb1
+The transcription is done using whisper and MFA aligner in order to obtain an automatic alignment of phonemes.
+2. 
+<img src="data/table_phonemes.png" alt="drawing" width="300"/>
+<img src="data/align_attribute_phonemes.png.png" alt="drawing" width="300"/>
 
 ### Improvement over Step1: Binary auto-encoder model
 
